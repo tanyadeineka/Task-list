@@ -1,5 +1,6 @@
 window.onload = () => {
     initialUISetup();
+    initialStorageSetup();
 }
 
 const initialUISetup = () => {
@@ -60,15 +61,34 @@ const addNewTask = () => {
     const id = generateID(10);
     taskWrapper.innerHTML = getTaskTemplate(inputElement.value, id).trim();
     document.getElementById('taskList').append(taskWrapper.firstChild);
+    addTaskToStorage({id: id, value: inputElement.value}, stringConstants.localStorageKey);
     inputElement.value = '';
     disableAddTaskButton();
     document.getElementById(id).addEventListener('click', (event) => onRadioClick(event));
 }
 
+const restoreTasks = (element, key) => {
+    const taskList = getTasksFromStorage(key);
+    const taskListTemplates = taskList.map((task) => getTaskTemplate(task.value, task.id).trim());
+    const documentFragment = document.createDocumentFragment();
+    const taskWrapper = document.createElement('div');
+    for (const task of taskListTemplates) {
+        taskWrapper.innerHTML = task;
+        documentFragment.append(taskWrapper.firstChild);
+    }
+    document.getElementById(element).append(documentFragment);
+}
+
 const changeTaskStatus = (id) => {
     const taskElement = document.getElementById(id);
+    const storageKey = getTaskStorageLocation(id);
     taskElement.remove();
-    document.getElementById('doneTaskList').append(taskElement);
+    if (storageKey === stringConstants.localStorageKey) {
+        document.getElementById('doneTaskList').append(taskElement);
+    } else {
+        document.getElementById('taskList').append(taskElement);
+    }
+    removeTaskFromStorage(id, storageKey);
 }
 
 const getTaskTemplate = (value, id) => {
