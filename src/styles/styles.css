@@ -68,3 +68,85 @@ main .taskListClass {
     display: flex;
     flex-direction: column;
 }
+main .task {
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0.3px 0.9px rgba(0, 0, 0, 10%), 0 1.6px 3.5px rgba(0, 0, 0, 10%);
+    margin: 20px;
+}
+main .task.hidden {
+    display: none;
+}
+main .task .radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+main .task .radio img {
+    opacity: 0;
+    transition: .3s ease-out;
+}
+main .task .radio img:hover {
+    opacity: 1;
+    transition: .3s ease-out;
+}
+main .task#addTask #options {
+    height: 50px;
+    padding: 0 15px;
+    background: darkgray;
+    margin-top: 5px;
+    border-bottom-left-radius: 5px; 
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+main .task#addTask #options #addButton {
+    background: white;
+    border-radius: 0;
+    border: 1 px solid black;
+    font-size: 14px;
+    padding: 8px 10px;
+    cursor: not-allowed;
+    color: gray;
+}
+main .task#addTask #options #addButton.valid {
+    color: #2564cf;
+    cursor: pointer;
+}
+main .task .taskName {
+    height: 50px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+main .task .taskName .leftElement {
+    margin-right: 10px;
+}
+main .task #addTaskInput {
+    border: none;
+    height: 100%;
+    width: 100%;
+    font-size: 16px;
+}
+main .task #addTaskInput:focus {
+    outline: none;
+}
+main #doneTaskList .task .radio {
+    border: 2px solid aquamarine;
+    background: aquamarine;
+}
+main #doneTaskList .task .radio img {
+    opacity: 1;
+}
+main #doneTaskList .task .taskName {
+    text-decoration: line-through;
+}
